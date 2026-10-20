@@ -1,0 +1,35 @@
+{
+    "name": "MyOrders Dahab",
+    "short_name": "MyOrders Dahab",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0E8FA3",
+    "theme_color": "#0E8FA3",
+    "description": "Order food, drinks, groceries and pharmacy items in Dahab.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
