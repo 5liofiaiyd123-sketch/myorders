@@ -303,7 +303,9 @@ class FutureView<T> extends StatefulWidget {
 class _FutureViewState<T> extends State<FutureView<T>> {
   late Future<T> _future = widget.load();
 
-  void _reload() => setState(() => _future = widget.load());
+  void _reload() => setState(() {
+    _future = widget.load();
+  });
 
   @override
   Widget build(BuildContext context) {

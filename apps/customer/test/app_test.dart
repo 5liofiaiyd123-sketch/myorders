@@ -1,25 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:myorders/main.dart';
 import 'package:myorders_core/myorders_core.dart';
 
-/// Loads the real Cairo font so text is measured like on a phone.
-Future<void> loadFonts() async {
-  final loader = FontLoader('packages/myorders_core/Cairo');
-  for (final w in [400, 500, 600, 700, 800]) {
-    final bytes = File('../../packages/core/assets/fonts/Cairo-$w.ttf').readAsBytesSync();
-    loader.addFont(Future.value(ByteData.view(bytes.buffer)));
-  }
-  await loader.load();
-}
+import 'helpers.dart';
 
 Future<MockRepository> pumpApp(WidgetTester tester, {String lang = 'en'}) async {
-  tester.view.physicalSize = const Size(1170, 2532);
-  tester.view.devicePixelRatio = 3;
-  addTearDown(tester.view.reset);
+  usePhoneScreen(tester);
   final repo = MockRepository();
   await tester.pumpWidget(MyOrdersApp(repo: repo, localeModel: LocaleModel(Locale(lang))));
   await tester.pumpAndSettle();
@@ -27,7 +14,7 @@ Future<MockRepository> pumpApp(WidgetTester tester, {String lang = 'en'}) async 
 }
 
 void main() {
-  setUpAll(loadFonts);
+  setUpAll(loadAppFonts);
 
   testWidgets('home shows all sections', (tester) async {
     await pumpApp(tester);

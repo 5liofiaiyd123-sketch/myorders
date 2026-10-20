@@ -8,6 +8,7 @@ export 'src/data/models.dart';
 export 'src/data/repository.dart';
 export 'src/l10n.dart';
 export 'src/maps.dart';
+export 'src/staff_sign_in.dart';
 export 'src/state.dart';
 export 'src/theme.dart';
 export 'src/widgets.dart';
