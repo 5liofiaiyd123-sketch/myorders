@@ -13,17 +13,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final repo = context.read<MyOrdersRepository>();
+    void open(Widget screen) =>
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(child: _Header()),
-          const SliverToBoxAdapter(child: DemoBanner()),
+          const SliverToBoxAdapter(child: _Hero()),
+          const SliverToBoxAdapter(
+            child: Padding(padding: EdgeInsets.only(top: 12), child: DemoBanner()),
+          ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             sliver: SliverGrid.count(
               crossAxisCount: 3,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
+              mainAxisSpacing: 14,
+              crossAxisSpacing: 14,
               childAspectRatio: 1,
               children: [
                 for (final section in Section.values)
@@ -31,38 +35,27 @@ class HomeScreen extends StatelessWidget {
                     label: context.section(section),
                     icon: SectionStyle.of[section]!.icon,
                     color: SectionStyle.of[section]!.color,
-                    onTap: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => SectionScreen(section: section))),
+                    onTap: () => open(SectionScreen(section: section)),
                   ),
                 _SectionTile(
                   label: context.t('delivery'),
                   icon: Icons.two_wheeler_rounded,
                   color: AppColors.delivery,
-                  onTap: () =>
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) => const CourierScreen())),
+                  onTap: () => open(const CourierScreen()),
                 ),
                 _SectionTile(
                   label: context.t('more'),
                   icon: Icons.grid_view_rounded,
                   color: AppColors.more,
-                  onTap: () =>
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) => const SearchScreen())),
+                  onTap: () => open(const SearchScreen()),
                 ),
               ],
             ),
           ),
+          SliverToBoxAdapter(child: _Heading(context.t('explore'))),
+          const SliverToBoxAdapter(child: _Highlights()),
           const SliverToBoxAdapter(child: _PromoCard()),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: Text(
-                context.t('popular'),
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-              ),
-            ),
-          ),
+          SliverToBoxAdapter(child: _Heading(context.t('popular'))),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
@@ -82,87 +75,179 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
-  const _Header();
+class _Heading extends StatelessWidget {
+  final String text;
+  const _Heading(this.text);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: seaGradient,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(28)),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 12, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+      child: Text(text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+    );
+  }
+}
+
+/// Full-bleed photo of Dahab's bay with the logo, tagline and search.
+class _Hero extends StatelessWidget {
+  const _Hero();
+
+  static const _searchHeight = 54.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final rtl = Directionality.of(context) == TextDirection.rtl;
+    final top = MediaQuery.paddingOf(context).top;
+    return SizedBox(
+      height: top + 320 + _searchHeight / 2,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            bottom: _searchHeight / 2,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(28)),
+              child: Stack(
+                fit: StackFit.expand,
                 children: [
-                  const Expanded(
-                    child: Text(
-                      'MyOrders',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800,
+                  Transform.flip(
+                    flipX: rtl,
+                    child: Image.asset(
+                      AppImages.hero,
+                      package: AppImages.package,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withValues(alpha: 0.6),
+                          Colors.white.withValues(alpha: 0),
+                          AppColors.tealDark.withValues(alpha: 0.05),
+                          AppColors.tealDark.withValues(alpha: 0.75),
+                        ],
+                        stops: const [0, 0.4, 0.55, 1],
                       ),
                     ),
                   ),
-                  const LanguageButton(color: Colors.white),
-                  const CartIconButton(color: Colors.white),
                 ],
               ),
-              Row(
+            ),
+          ),
+          Positioned(
+            top: top + 8,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 12, 0),
+              child: Row(
                 children: [
-                  const Icon(Icons.location_on_rounded, color: AppColors.promo, size: 18),
+                  const Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Padding(padding: EdgeInsets.only(top: 16), child: BrandLogo(size: 32)),
+                    ),
+                  ),
+                  _GlassButton(child: const LanguageButton(color: AppColors.tealDark)),
+                  const SizedBox(width: 8),
+                  const _GlassButton(child: CartIconButton(color: AppColors.tealDark)),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: top + 72,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  const Icon(Icons.location_on_rounded, color: AppColors.tealDark, size: 18),
                   const SizedBox(width: 4),
                   Text(
                     context.t('location'),
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: const TextStyle(color: AppColors.tealDark, fontWeight: FontWeight.w700),
+                  ),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: AppColors.tealDark,
+                    size: 18,
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Text(
-                      context.t('appTagline'),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        height: 1.2,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  const Text('🏖️', style: TextStyle(fontSize: 56)),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Text(
-                context.t('appSubtitle'),
-                style: const TextStyle(color: Colors.white, fontSize: 13),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsetsDirectional.only(end: 8),
-                child: SearchBox(
-                  hint: context.t('search'),
-                  onTap: () =>
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) => const SearchScreen())),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            left: 20,
+            right: 20,
+            bottom: _searchHeight / 2 + 40,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.t('appTagline'),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    height: 1.15,
+                    fontWeight: FontWeight.w800,
+                    shadows: [Shadow(color: Color(0x66000000), blurRadius: 12)],
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  context.t('appSubtitle'),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    shadows: [Shadow(color: Color(0x66000000), blurRadius: 8)],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 0,
+            height: _searchHeight,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: softShadow,
+              ),
+              child: SearchBox(
+                hint: context.t('search'),
+                onTap: () =>
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => const SearchScreen())),
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+/// Frosted white pill so icons stay readable over the sky.
+class _GlassButton extends StatelessWidget {
+  final Widget child;
+  const _GlassButton({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.75),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: child,
     );
   }
 }
@@ -182,30 +267,91 @@ class _SectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(18),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: onTap,
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: AppColors.border),
-          ),
+    final light = Color.lerp(color, Colors.white, 0.25)!;
+    return DecoratedBox(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: softShadow),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onTap,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 26,
-                backgroundColor: color,
-                child: Icon(icon, color: Colors.white, size: 28),
+              Container(
+                width: 58,
+                height: 58,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [light, color],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.35),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Icon(icon, color: Colors.white, size: 30),
               ),
-              const SizedBox(height: 8),
-              Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 10),
+              Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Swipeable photo cards, one per section.
+class _Highlights extends StatelessWidget {
+  const _Highlights();
+
+  @override
+  Widget build(BuildContext context) {
+    final sections = Section.values;
+    return SizedBox(
+      height: 180,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        itemCount: sections.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 12),
+        itemBuilder: (context, i) {
+          final section = sections[i];
+          final style = SectionStyle.of[section]!;
+          return SizedBox(
+            width: 300,
+            child: GestureDetector(
+              onTap: () =>
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => SectionScreen(section: section))),
+              child: PhotoBanner(
+                image: AppImages.banner(section),
+                title: context.tr(style.bannerTitle),
+                body: context.tr(style.bannerBody),
+                height: 164,
+                trailing: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.promo,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    context.t('orderNow'),
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -217,13 +363,28 @@ class _PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.promo, borderRadius: BorderRadius.circular(18)),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [Color(0xFFFFD45C), AppColors.promo]),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.promo.withValues(alpha: 0.35),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
       child: Row(
         children: [
-          const Text('🛵', style: TextStyle(fontSize: 36)),
-          const SizedBox(width: 12),
+          Container(
+            width: 52,
+            height: 52,
+            decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            child: const Icon(Icons.delivery_dining_rounded, color: AppColors.delivery, size: 30),
+          ),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

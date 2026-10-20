@@ -87,12 +87,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
             builder: (context, snap) {
               final orders = (snap.data ?? const <Order>[]).take(8).toList();
               return Card(
-                elevation: 0,
+                elevation: 3,
+                shadowColor: const Color(0x260A4A55),
                 color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: const BorderSide(color: AppColors.border),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
                     for (final o in orders)
@@ -131,14 +129,23 @@ class _StatCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: softShadow,
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: AppColors.tealLight,
-            child: Icon(icon, color: AppColors.teal),
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFF14A3B8), AppColors.tealDark],
+              ),
+            ),
+            child: Icon(icon, color: Colors.white),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -170,7 +177,7 @@ class _RevenueChart extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        boxShadow: softShadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

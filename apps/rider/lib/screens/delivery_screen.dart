@@ -156,7 +156,14 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
               Text(itemsSummary(context, order)),
               if (order.notes.isNotEmpty && order.kind == OrderKind.store) ...[
                 const SizedBox(height: 8),
-                Text('📝 ${order.notes}'),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.sticky_note_2_outlined, size: 18, color: AppColors.textMuted),
+                    const SizedBox(width: 6),
+                    Expanded(child: Text(order.notes)),
+                  ],
+                ),
               ],
               const Divider(height: 24),
               Row(

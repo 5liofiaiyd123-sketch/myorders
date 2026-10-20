@@ -61,10 +61,7 @@ class _DashboardShellState extends State<DashboardShell> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'MyOrders',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: AppColors.teal),
-              ),
+              const Padding(padding: EdgeInsets.only(top: 12), child: BrandLogo(size: 26)),
               Text(subtitle, style: const TextStyle(color: AppColors.textMuted)),
             ],
           ),

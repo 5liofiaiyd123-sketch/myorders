@@ -64,14 +64,12 @@ class _StoresScreenState extends State<StoresScreen> {
             children: [
               for (final s in snap.data!)
                 Card(
-                  elevation: 0,
+                  elevation: 3,
+                  shadowColor: const Color(0x260A4A55),
                   color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(color: AppColors.border),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   child: ListTile(
-                    leading: Text(s.emoji, style: const TextStyle(fontSize: 28)),
+                    leading: StorePhoto(s, width: 48, height: 48, radius: 12),
                     title: Text(
                       context.tr(s.name),
                       style: const TextStyle(fontWeight: FontWeight.w700),
@@ -186,7 +184,7 @@ class _StoreDialogState extends State<_StoreDialog> {
       controller: c,
       validator: validator,
       keyboardType: number ? TextInputType.number : null,
-      decoration: InputDecoration(labelText: context.t(label), border: const OutlineInputBorder()),
+      decoration: InputDecoration(labelText: context.t(label)),
     );
     Widget pair(Widget a, Widget b) => Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -218,10 +216,7 @@ class _StoreDialogState extends State<_StoreDialog> {
                 pair(
                   DropdownButtonFormField<Section>(
                     initialValue: _section,
-                    decoration: InputDecoration(
-                      labelText: context.t('section'),
-                      border: const OutlineInputBorder(),
-                    ),
+                    decoration: InputDecoration(labelText: context.t('section')),
                     items: [
                       for (final s in Section.values)
                         DropdownMenuItem(value: s, child: Text(context.section(s))),
@@ -231,10 +226,7 @@ class _StoreDialogState extends State<_StoreDialog> {
                   DropdownButtonFormField<String>(
                     key: ValueKey(_section),
                     initialValue: _category,
-                    decoration: InputDecoration(
-                      labelText: context.t('category'),
-                      border: const OutlineInputBorder(),
-                    ),
+                    decoration: InputDecoration(labelText: context.t('category')),
                     items: [
                       for (final c in categories)
                         DropdownMenuItem(value: c.id, child: Text(context.tr(c.label))),

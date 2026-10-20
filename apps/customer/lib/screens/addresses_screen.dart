@@ -107,10 +107,7 @@ class _NewAddressScreenState extends State<_NewAddressScreen> {
         children: [
           TextField(
             controller: _label,
-            decoration: InputDecoration(
-              labelText: context.t('addressLabel'),
-              border: const OutlineInputBorder(),
-            ),
+            decoration: InputDecoration(labelText: context.t('addressLabel')),
           ),
           const SizedBox(height: 12),
           AddressPicker(selection: _selection, showSaved: false),

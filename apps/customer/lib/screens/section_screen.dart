@@ -62,11 +62,16 @@ class _SectionScreenState extends State<SectionScreen> {
                   onChanged: (v) => setState(() => _query = v.trim()),
                 ),
                 const SizedBox(height: 16),
-                _Banner(style: style),
+                PhotoBanner(
+                  image: AppImages.banner(widget.section),
+                  title: context.tr(style.bannerTitle),
+                  body: context.tr(style.bannerBody),
+                ),
                 const SizedBox(height: 16),
                 SizedBox(
-                  height: 76,
+                  height: 84,
                   child: ListView.separated(
+                    clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     itemCount: filters.length,
                     separatorBuilder: (_, _) => const SizedBox(width: 10),
@@ -91,47 +96,6 @@ class _SectionScreenState extends State<SectionScreen> {
   }
 }
 
-class _Banner extends StatelessWidget {
-  final SectionStyle style;
-  const _Banner({required this.style});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 130,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(gradient: seaGradient, borderRadius: BorderRadius.circular(18)),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  context.tr(style.bannerTitle),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    height: 1.15,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  context.tr(style.bannerBody),
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
-                ),
-              ],
-            ),
-          ),
-          Text(style.bannerEmoji, style: const TextStyle(fontSize: 64)),
-        ],
-      ),
-    );
-  }
-}
-
 class _FilterChip extends StatelessWidget {
   final SectionFilter filter;
   final bool selected;
@@ -148,12 +112,20 @@ class _FilterChip extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 52,
-              height: 44,
+              width: 54,
+              height: 46,
               decoration: BoxDecoration(
                 color: selected ? AppColors.teal : Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: selected ? AppColors.teal : AppColors.border),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: selected
+                    ? [
+                        BoxShadow(
+                          color: AppColors.teal.withValues(alpha: 0.35),
+                          blurRadius: 12,
+                          offset: const Offset(0, 5),
+                        ),
+                      ]
+                    : softShadow,
               ),
               child: Icon(filter.icon, color: selected ? Colors.white : AppColors.teal),
             ),

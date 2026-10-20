@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 for (final p in products.take(3))
                   ListTile(
                     dense: true,
-                    leading: Text(p.emoji, style: const TextStyle(fontSize: 22)),
+                    leading: ItemIcon(p.emoji, color: AppColors.teal, size: 40),
                     title: Text(context.tr(p.name)),
                     trailing: Text(context.price(p.price)),
                     onTap: () =>

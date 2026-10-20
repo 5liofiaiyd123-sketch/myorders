@@ -116,7 +116,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.symmetric(vertical: 6),
               child: Row(
                 children: [
-                  Text(line.product.emoji, style: const TextStyle(fontSize: 26)),
+                  ItemIcon(line.product.emoji, color: AppColors.teal, size: 44),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -148,10 +148,7 @@ class _CartScreenState extends State<CartScreen> {
           TextField(
             controller: _notes,
             maxLines: 2,
-            decoration: InputDecoration(
-              labelText: context.t('notes'),
-              border: const OutlineInputBorder(),
-            ),
+            decoration: InputDecoration(labelText: context.t('notes')),
           ),
           const Divider(height: 32),
           _SectionTitle(context.t('payment')),

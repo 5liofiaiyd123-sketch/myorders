@@ -13,6 +13,7 @@ class AppColors {
   static const textMuted = Color(0xFF5B6B73);
   static const border = Color(0xFFE2E8EA);
   static const star = Color(0xFFF5A623);
+  static const background = Color(0xFFF3F7F8);
 
   static const food = Color(0xFFF5782B);
   static const drinks = Color(0xFF2E86DE);
@@ -44,12 +45,12 @@ ThemeData buildTheme() {
       primary: AppColors.teal,
       surface: Colors.white,
     ),
-    scaffoldBackgroundColor: const Color(0xFFF7FAFA),
+    scaffoldBackgroundColor: AppColors.background,
   );
   return base.copyWith(
     textTheme: base.textTheme.apply(bodyColor: AppColors.text, displayColor: AppColors.text),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       foregroundColor: AppColors.text,
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -68,8 +69,32 @@ ThemeData buildTheme() {
         textStyle: const TextStyle(fontFamily: appFont, fontSize: 16, fontWeight: FontWeight.w600),
       ),
     ),
+    cardTheme: CardThemeData(
+      color: Colors.white,
+      elevation: 0,
+      shadowColor: const Color(0x220A4A55),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: AppColors.teal, width: 1.6),
+      ),
+    ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: Colors.white,
+      elevation: 0,
+      height: 68,
       indicatorColor: AppColors.tealLight,
       labelTextStyle: WidgetStateProperty.all(
         const TextStyle(fontFamily: appFont, fontSize: 12, fontWeight: FontWeight.w500),

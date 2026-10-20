@@ -90,7 +90,6 @@ class _CourierScreenState extends State<CourierScreen> {
             decoration: InputDecoration(
               labelText: context.t('whatToSend'),
               prefixIcon: const Icon(Icons.inventory_2_outlined),
-              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 12),
@@ -100,7 +99,6 @@ class _CourierScreenState extends State<CourierScreen> {
               labelText: context.t('pickupFrom'),
               hintText: context.t('addressHint'),
               prefixIcon: const Icon(Icons.storefront_outlined),
-              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 12),

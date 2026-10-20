@@ -86,8 +86,12 @@ class DemoBanner extends StatelessWidget {
     if (!context.read<MyOrdersRepository>().isDemo) return const SizedBox.shrink();
     return Container(
       width: double.infinity,
-      color: AppColors.promo.withValues(alpha: 0.25),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: AppColors.promo.withValues(alpha: 0.22),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Text(
         context.t(hintKey),
         style: const TextStyle(fontSize: 12, color: AppColors.text),

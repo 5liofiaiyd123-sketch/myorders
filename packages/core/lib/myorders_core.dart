@@ -1,6 +1,7 @@
 /// Shared code for the MyOrders customer, rider and dashboard apps.
 library;
 
+export 'src/brand.dart';
 export 'src/config.dart';
 export 'src/data/mock_data.dart';
 export 'src/data/mock_repository.dart';

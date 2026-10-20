@@ -81,13 +81,11 @@ class _OrderCard extends StatelessWidget {
         ? context.t('courierTitle')
         : context.tr(order.storeName!);
     return Card(
-      elevation: 0,
+      elevation: 3,
+      shadowColor: const Color(0x260A4A55),
       color: Colors.white,
       margin: const EdgeInsets.only(bottom: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: AppColors.border),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () =>

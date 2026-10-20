@@ -17,12 +17,10 @@ class RidersScreen extends StatelessWidget {
           children: [
             for (final r in snap.data!)
               Card(
-                elevation: 0,
+                elevation: 3,
+                shadowColor: const Color(0x260A4A55),
                 color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  side: const BorderSide(color: AppColors.border),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: r.isOnline ? AppColors.supermarket : AppColors.more,

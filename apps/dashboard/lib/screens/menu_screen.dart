@@ -74,14 +74,12 @@ class _MenuScreenState extends State<MenuScreen> {
             children: [
               for (final p in products)
                 Card(
-                  elevation: 0,
+                  elevation: 3,
+                  shadowColor: const Color(0x260A4A55),
                   color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(color: AppColors.border),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   child: ListTile(
-                    leading: Text(p.emoji, style: const TextStyle(fontSize: 28)),
+                    leading: ItemIcon(p.emoji, color: AppColors.teal, size: 44),
                     title: Text(
                       context.tr(p.name),
                       style: TextStyle(
@@ -176,10 +174,7 @@ class _ProductDialogState extends State<ProductDialog> {
         controller: c,
         validator: validator,
         keyboardType: keyboard,
-        decoration: InputDecoration(
-          labelText: context.t(label),
-          border: const OutlineInputBorder(),
-        ),
+        decoration: InputDecoration(labelText: context.t(label)),
       ),
     );
     return AlertDialog(

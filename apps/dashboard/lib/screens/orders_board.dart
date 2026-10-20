@@ -195,7 +195,16 @@ class OrderCard extends StatelessWidget {
               Text('${i.quantity}× ${context.tr(i.name)}  ·  ${context.price(i.total)}'),
             if (o.kind == OrderKind.courier) Text('${o.pickupAddress} → ${o.address}'),
             if (o.notes.isNotEmpty && o.kind == OrderKind.store)
-              Text('📝 ${o.notes}', style: const TextStyle(color: AppColors.textMuted)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.sticky_note_2_outlined, size: 18, color: AppColors.textMuted),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(o.notes, style: const TextStyle(color: AppColors.textMuted)),
+                  ),
+                ],
+              ),
             const Divider(),
             Row(
               children: [
@@ -219,7 +228,13 @@ class OrderCard extends StatelessWidget {
                 style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
               ),
             if (o.riderName != null)
-              Text('🛵 ${o.riderName}', style: const TextStyle(color: AppColors.teal)),
+              Row(
+                children: [
+                  const Icon(Icons.delivery_dining_rounded, size: 18, color: AppColors.teal),
+                  const SizedBox(width: 4),
+                  Text('${o.riderName}', style: const TextStyle(color: AppColors.teal)),
+                ],
+              ),
             if (o.isActive) ...[
               const SizedBox(height: 10),
               Wrap(

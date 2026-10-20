@@ -69,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const Text('🌊', style: TextStyle(fontSize: 56), textAlign: TextAlign.center),
+          const Center(child: BrandLogo(size: 36)),
           const SizedBox(height: 8),
           Text(
             context.t('signInToOrder'),
@@ -81,10 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
             controller: _name,
             enabled: !_codeSent,
             textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
-              labelText: context.t('yourName'),
-              border: const OutlineInputBorder(),
-            ),
+            decoration: InputDecoration(labelText: context.t('yourName')),
           ),
           const SizedBox(height: 12),
           TextField(
@@ -94,7 +91,6 @@ class _SignInScreenState extends State<SignInScreen> {
             decoration: InputDecoration(
               labelText: context.t('phone'),
               hintText: '010 1234 5678',
-              border: const OutlineInputBorder(),
               prefixIcon: const Icon(Icons.phone_iphone_rounded),
             ),
           ),
@@ -107,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
               autofocus: true,
               keyboardType: TextInputType.number,
               maxLength: 6,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(),
             ),
           ],
           const SizedBox(height: 16),

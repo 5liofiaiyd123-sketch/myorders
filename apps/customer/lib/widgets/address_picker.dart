@@ -100,7 +100,6 @@ class _AddressPickerState extends State<AddressPicker> {
             labelText: widget.label ?? context.t('deliverTo'),
             hintText: context.t('addressHint'),
             prefixIcon: const Icon(Icons.location_on_outlined),
-            border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: 8),

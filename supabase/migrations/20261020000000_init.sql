@@ -20,6 +20,7 @@ create table public.stores (
   delivery_fee numeric(10, 2) not null default 20,
   min_order numeric(10, 2) not null default 0,
   emoji text not null default '🏪',
+  image_url text not null default '',
   phone text not null default '',
   is_open boolean not null default true,
   is_active boolean not null default true,

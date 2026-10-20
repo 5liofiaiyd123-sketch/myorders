@@ -80,6 +80,9 @@ class Store {
   final double deliveryFee;
   final double minOrder;
   final String emoji;
+
+  /// Cover photo. Empty means the bundled demo photo, if any, or the emoji.
+  final String imageUrl;
   final String phone;
   final bool isOpen;
   final bool isActive;
@@ -97,6 +100,7 @@ class Store {
     this.deliveryFee = 20,
     this.minOrder = 0,
     this.emoji = '🏪',
+    this.imageUrl = '',
     this.phone = '',
     this.isOpen = true,
     this.isActive = true,
@@ -115,6 +119,7 @@ class Store {
     deliveryFee: _num(row['delivery_fee']),
     minOrder: _num(row['min_order']),
     emoji: row['emoji'] as String? ?? '🏪',
+    imageUrl: row['image_url'] as String? ?? '',
     phone: row['phone'] as String? ?? '',
     isOpen: row['is_open'] as bool? ?? true,
     isActive: row['is_active'] as bool? ?? true,
@@ -131,6 +136,7 @@ class Store {
     'delivery_fee': deliveryFee,
     'min_order': minOrder,
     'emoji': emoji,
+    'image_url': imageUrl,
     'phone': phone,
     'is_open': isOpen,
     'is_active': isActive,
@@ -146,6 +152,7 @@ class Store {
     double? deliveryFee,
     double? minOrder,
     String? emoji,
+    String? imageUrl,
     String? phone,
     bool? isOpen,
     bool? isActive,
@@ -162,6 +169,7 @@ class Store {
     deliveryFee: deliveryFee ?? this.deliveryFee,
     minOrder: minOrder ?? this.minOrder,
     emoji: emoji ?? this.emoji,
+    imageUrl: imageUrl ?? this.imageUrl,
     phone: phone ?? this.phone,
     isOpen: isOpen ?? this.isOpen,
     isActive: isActive ?? this.isActive,

@@ -11,9 +11,8 @@ class SectionStyle {
   final Color color;
   final Tr bannerTitle;
   final Tr bannerBody;
-  final String bannerEmoji;
 
-  const SectionStyle(this.icon, this.color, this.bannerTitle, this.bannerBody, this.bannerEmoji);
+  const SectionStyle(this.icon, this.color, this.bannerTitle, this.bannerBody);
 
   static const of = <Section, SectionStyle>{
     Section.food: SectionStyle(
@@ -21,38 +20,27 @@ class SectionStyle {
       AppColors.food,
       Tr('Good Food\nGood Mood', 'أكل حلو\nمزاج حلو'),
       Tr('Fresh meals from the best restaurants in Dahab', 'أحسن مطاعم دهب لحد عندك'),
-      '🍽️',
     ),
     Section.drinks: SectionStyle(
       Icons.local_cafe_rounded,
       AppColors.drinks,
       Tr('Cool Drinks\nHot Days', 'مشروبات ساقعة\nلأيام حر'),
       Tr('Fresh juices, coffee and more', 'عصاير فريش وقهوة وأكتر'),
-      '🍹',
     ),
     Section.supermarket: SectionStyle(
       Icons.shopping_cart_rounded,
       AppColors.supermarket,
       Tr('Fresh Products\nEveryday', 'منتجات فريش\nكل يوم'),
       Tr('Groceries, essentials and more', 'بقالة وطلبات البيت'),
-      '🧺',
     ),
     Section.pharmacy: SectionStyle(
       Icons.medical_services_rounded,
       AppColors.pharmacy,
       Tr('Health First', 'صحتك أولاً'),
       Tr('Your pharmacy in Dahab', 'صيدليتك في دهب'),
-      '💊',
     ),
   };
 }
-
-/// Sea-colored gradient used where the design has a beach photo.
-const seaGradient = LinearGradient(
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-  colors: [Color(0xFF0A6C7C), Color(0xFF14A3B8), Color(0xFF7FD3DE)],
-);
 
 class Rating extends StatelessWidget {
   final Store store;
@@ -98,27 +86,6 @@ class Rating extends StatelessWidget {
   }
 }
 
-class EmojiTile extends StatelessWidget {
-  final String emoji;
-  final Color color;
-  final double size;
-  const EmojiTile(this.emoji, {super.key, required this.color, this.size = 72});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Text(emoji, style: TextStyle(fontSize: size * 0.5)),
-    );
-  }
-}
-
 class FavoriteButton extends StatelessWidget {
   final String storeId;
   const FavoriteButton(this.storeId, {super.key});
@@ -147,50 +114,49 @@ class StoreTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = SectionStyle.of[store.section]!;
-    return Card(
-      elevation: 0,
-      color: Colors.white,
+    return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: AppColors.border),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: () =>
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => StoreScreen(store: store))),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 4, 12),
-          child: Row(
-            children: [
-              Opacity(
-                opacity: store.isOpen ? 1 : 0.5,
-                child: EmojiTile(store.emoji, color: style.color),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.tr(store.name),
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      store.isOpen ? context.tr(store.tags) : context.t('closed'),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: store.isOpen ? AppColors.textMuted : AppColors.delivery,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Rating(store),
-                  ],
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), boxShadow: softShadow),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: () =>
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => StoreScreen(store: store))),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 4, 10),
+            child: Row(
+              children: [
+                Opacity(
+                  opacity: store.isOpen ? 1 : 0.5,
+                  child: StorePhoto(store, width: 88, height: 80, tint: style.color),
                 ),
-              ),
-              FavoriteButton(store.id),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        context.tr(store.name),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                      ),
+                      Text(
+                        store.isOpen ? context.tr(store.tags) : context.t('closed'),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: store.isOpen ? AppColors.textMuted : AppColors.delivery,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Rating(store),
+                    ],
+                  ),
+                ),
+                FavoriteButton(store.id),
+              ],
+            ),
           ),
         ),
       ),
@@ -268,8 +234,8 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(14),
-      borderSide: const BorderSide(color: AppColors.border),
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: Color(0x110A4A55)),
     );
     return TextField(
       autofocus: autofocus,
@@ -285,6 +251,7 @@ class SearchBox extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         border: border,
         enabledBorder: border,
+        focusedBorder: border.copyWith(borderSide: const BorderSide(color: AppColors.teal)),
       ),
     );
   }

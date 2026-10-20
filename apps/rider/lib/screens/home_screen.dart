@@ -129,8 +129,11 @@ class _EarningsCard extends StatelessWidget {
     Widget stat(String label, String value) => Expanded(
       child: Column(
         children: [
-          Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
-          Text(label, style: const TextStyle(color: AppColors.textMuted)),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white),
+          ),
+          Text(label, style: const TextStyle(color: Color(0xDDFFFFFF))),
         ],
       ),
     );
@@ -138,12 +141,23 @@ class _EarningsCard extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.tealLight,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: const AssetImage(AppImages.hero, package: AppImages.package),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            AppColors.tealDark.withValues(alpha: 0.72),
+            BlendMode.srcOver,
+          ),
+        ),
+        boxShadow: softShadow,
       ),
       child: Column(
         children: [
-          Text(context.t('earningsToday'), style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(
+            context.t('earningsToday'),
+            style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -212,13 +226,11 @@ class _OrderListView extends StatelessWidget {
         final o = orders[i];
         final from = o.storeName == null ? (o.pickupAddress ?? '') : context.tr(o.storeName!);
         return Card(
-          elevation: 0,
+          elevation: 3,
+          shadowColor: const Color(0x260A4A55),
           color: Colors.white,
           margin: const EdgeInsets.only(bottom: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.border),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: available

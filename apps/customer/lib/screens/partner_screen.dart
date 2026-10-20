@@ -68,27 +68,11 @@ class _PartnerScreenState extends State<PartnerScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: seaGradient,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.t('partnerPitch'),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(context.t('partnerPitchBody'), style: const TextStyle(color: Colors.white)),
-                ],
-              ),
+            PhotoBanner(
+              image: AppImages.partner,
+              title: context.t('partnerPitch'),
+              body: context.t('partnerPitchBody'),
+              height: 170,
             ),
             const SizedBox(height: 16),
             for (final section in Section.values)
@@ -121,38 +105,26 @@ class _PartnerScreenState extends State<PartnerScreen> {
             TextFormField(
               controller: _business,
               validator: required,
-              decoration: InputDecoration(
-                labelText: context.t('businessName'),
-                border: const OutlineInputBorder(),
-              ),
+              decoration: InputDecoration(labelText: context.t('businessName')),
             ),
             const SizedBox(height: 12),
             TextFormField(
               controller: _contact,
               validator: required,
-              decoration: InputDecoration(
-                labelText: context.t('contactName'),
-                border: const OutlineInputBorder(),
-              ),
+              decoration: InputDecoration(labelText: context.t('contactName')),
             ),
             const SizedBox(height: 12),
             TextFormField(
               controller: _phone,
               validator: required,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                labelText: context.t('phone'),
-                border: const OutlineInputBorder(),
-              ),
+              decoration: InputDecoration(labelText: context.t('phone')),
             ),
             const SizedBox(height: 12),
             TextFormField(
               controller: _notes,
               maxLines: 2,
-              decoration: InputDecoration(
-                labelText: context.t('notes'),
-                border: const OutlineInputBorder(),
-              ),
+              decoration: InputDecoration(labelText: context.t('notes')),
             ),
             const SizedBox(height: 16),
             FilledButton(
