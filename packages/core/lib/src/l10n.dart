@@ -73,7 +73,10 @@ const _strings = <String, Tr>{
   'menu': Tr('Menu', 'المنيو'),
   'noFavorites': Tr('Tap ♡ on a store to save it here', 'دوس ♡ على أي محل علشان يظهر هنا'),
   'promoTitle': Tr('Delivered across Dahab', 'بنوصل لكل حتة في دهب'),
-  'promoBody': Tr('From Lighthouse to Assalah. Pay cash on delivery.', 'من اللايت هاوس للعصلة. وادفع كاش عند الاستلام.'),
+  'promoBody': Tr(
+    'From Lighthouse to Assalah. Pay cash on delivery.',
+    'من اللايت هاوس للعصلة. وادفع كاش عند الاستلام.',
+  ),
 
   // Customer: cart and checkout
   'cart': Tr('Cart', 'السلة'),

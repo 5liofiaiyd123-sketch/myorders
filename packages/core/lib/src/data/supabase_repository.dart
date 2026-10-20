@@ -248,7 +248,8 @@ class SupabaseRepository implements MyOrdersRepository {
 
   @override
   Future<void> updateRiderLocation(String orderId, double lat, double lng) => _guard(
-    () => _db.rpc('update_rider_location', params: {'order_id': orderId, 'p_lat': lat, 'p_lng': lng}),
+    () =>
+        _db.rpc('update_rider_location', params: {'order_id': orderId, 'p_lat': lat, 'p_lng': lng}),
   );
 
   @override

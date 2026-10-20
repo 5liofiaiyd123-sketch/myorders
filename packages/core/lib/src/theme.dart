@@ -22,6 +22,9 @@ class AppColors {
   static const more = Color(0xFF7C8A92);
 }
 
+/// Cairo, bundled in this package, covers Arabic and Latin.
+const appFont = 'packages/myorders_core/Cairo';
+
 /// Status colors used on order chips across the apps.
 Color statusColor(OrderStatus s) => switch (s) {
   OrderStatus.pending => const Color(0xFFE58A00),
@@ -35,7 +38,7 @@ Color statusColor(OrderStatus s) => switch (s) {
 ThemeData buildTheme() {
   final base = ThemeData(
     useMaterial3: true,
-    fontFamily: 'packages/myorders_core/Cairo',
+    fontFamily: appFont,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.teal,
       primary: AppColors.teal,
@@ -50,21 +53,26 @@ ThemeData buildTheme() {
       foregroundColor: AppColors.text,
       elevation: 0,
       scrolledUnderElevation: 0,
-      titleTextStyle: TextStyle(color: AppColors.text, fontSize: 22, fontWeight: FontWeight.w700),
+      titleTextStyle: TextStyle(
+        fontFamily: appFont,
+        color: AppColors.text,
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+      ),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         backgroundColor: AppColors.teal,
         minimumSize: const Size.fromHeight(52),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: const TextStyle(fontFamily: appFont, fontSize: 16, fontWeight: FontWeight.w600),
       ),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: Colors.white,
       indicatorColor: AppColors.tealLight,
       labelTextStyle: WidgetStateProperty.all(
-        const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        const TextStyle(fontFamily: appFont, fontSize: 12, fontWeight: FontWeight.w500),
       ),
     ),
   );

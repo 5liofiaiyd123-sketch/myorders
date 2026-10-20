@@ -1,11 +1,11 @@
 {
-    "name": "myorders_rider",
-    "short_name": "myorders_rider",
+    "name": "MyOrders Rider",
+    "short_name": "MyOrders Rider",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0E8FA3",
+    "theme_color": "#0E8FA3",
+    "description": "Delivery app for MyOrders riders in Dahab.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

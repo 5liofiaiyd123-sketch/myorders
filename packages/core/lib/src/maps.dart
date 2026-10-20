@@ -38,27 +38,26 @@ class DahabMap extends StatelessWidget {
           onTap: onTap == null ? null : (_, point) => onTap!(point),
         ),
         children: [
-          TileLayer(
-            urlTemplate: AppConfig.mapTilesUrl,
-            userAgentPackageName: 'com.myorders.dahab',
-          ),
-          MarkerLayer(markers: [
-            for (final pin in pins)
-              Marker(
-                point: pin.point,
-                width: 40,
-                height: 40,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: pin.color,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 3),
-                    boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6)],
+          TileLayer(urlTemplate: AppConfig.mapTilesUrl, userAgentPackageName: 'com.myorders.dahab'),
+          MarkerLayer(
+            markers: [
+              for (final pin in pins)
+                Marker(
+                  point: pin.point,
+                  width: 40,
+                  height: 40,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: pin.color,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 3),
+                      boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6)],
+                    ),
+                    child: Icon(pin.icon, color: Colors.white, size: 20),
                   ),
-                  child: Icon(pin.icon, color: Colors.white, size: 20),
                 ),
-              ),
-          ]),
+            ],
+          ),
           const SimpleAttributionWidget(source: Text('OpenStreetMap')),
         ],
       ),
@@ -91,12 +90,14 @@ Future<LatLng?> currentLocation() async {
 Future<void> callPhone(String phone) => launchUrl(Uri(scheme: 'tel', path: phone));
 
 Future<void> openWhatsApp(String number, [String text = '']) => launchUrl(
-      Uri.parse('https://wa.me/${number.replaceAll(RegExp(r'[^0-9]'), '')}'
-          '?text=${Uri.encodeComponent(text)}'),
-      mode: LaunchMode.externalApplication,
-    );
+  Uri.parse(
+    'https://wa.me/${number.replaceAll(RegExp(r'[^0-9]'), '')}'
+    '?text=${Uri.encodeComponent(text)}',
+  ),
+  mode: LaunchMode.externalApplication,
+);
 
 Future<void> openDirections(double lat, double lng) => launchUrl(
-      Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng'),
-      mode: LaunchMode.externalApplication,
-    );
+  Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng'),
+  mode: LaunchMode.externalApplication,
+);

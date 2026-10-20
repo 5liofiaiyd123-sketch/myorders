@@ -1,11 +1,11 @@
 {
-    "name": "myorders_dashboard",
-    "short_name": "myorders_dashboard",
+    "name": "MyOrders Dashboard",
+    "short_name": "MyOrders Dashboard",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0E8FA3",
+    "theme_color": "#0E8FA3",
+    "description": "Partner portal and admin panel for MyOrders Dahab.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

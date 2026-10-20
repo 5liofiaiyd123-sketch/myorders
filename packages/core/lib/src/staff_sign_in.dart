@@ -65,55 +65,67 @@ class _StaffSignInScreenState extends State<StaffSignInScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: AutofillGroup(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                      Row(children: [
-                        const Expanded(
-                          child: Text('MyOrders',
-                              style: TextStyle(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'MyOrders',
+                                style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w800,
-                                  color: AppColors.teal)),
+                                  color: AppColors.teal,
+                                ),
+                              ),
+                            ),
+                            const LanguageButton(),
+                          ],
                         ),
-                        const LanguageButton(),
-                      ]),
-                      Text(widget.title,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                      const SizedBox(height: 20),
-                      TextField(
-                        controller: _email,
-                        keyboardType: TextInputType.emailAddress,
-                        autofillHints: const [AutofillHints.email],
-                        decoration: InputDecoration(
-                          labelText: context.t('email'),
-                          prefixIcon: const Icon(Icons.alternate_email_rounded),
-                          border: const OutlineInputBorder(),
+                        Text(
+                          widget.title,
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      TextField(
-                        controller: _password,
-                        obscureText: true,
-                        autofillHints: const [AutofillHints.password],
-                        onSubmitted: (_) => _signIn(),
-                        decoration: InputDecoration(
-                          labelText: context.t('password'),
-                          prefixIcon: const Icon(Icons.lock_outline_rounded),
-                          border: const OutlineInputBorder(),
+                        const SizedBox(height: 20),
+                        TextField(
+                          controller: _email,
+                          keyboardType: TextInputType.emailAddress,
+                          autofillHints: const [AutofillHints.email],
+                          decoration: InputDecoration(
+                            labelText: context.t('email'),
+                            prefixIcon: const Icon(Icons.alternate_email_rounded),
+                            border: const OutlineInputBorder(),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      FilledButton(
-                        onPressed: _busy ? null : _signIn,
-                        child: Text(context.t('signIn')),
-                      ),
-                      if (context.read<MyOrdersRepository>().isDemo)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: Text(context.t('demoStaff'),
+                        const SizedBox(height: 12),
+                        TextField(
+                          controller: _password,
+                          obscureText: true,
+                          autofillHints: const [AutofillHints.password],
+                          onSubmitted: (_) => _signIn(),
+                          decoration: InputDecoration(
+                            labelText: context.t('password'),
+                            prefixIcon: const Icon(Icons.lock_outline_rounded),
+                            border: const OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        FilledButton(
+                          onPressed: _busy ? null : _signIn,
+                          child: Text(context.t('signIn')),
+                        ),
+                        if (context.read<MyOrdersRepository>().isDemo)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Text(
+                              context.t('demoStaff'),
                               textAlign: TextAlign.center,
-                              style: const TextStyle(color: AppColors.textMuted, fontSize: 13)),
-                        ),
-                    ]),
+                              style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),
